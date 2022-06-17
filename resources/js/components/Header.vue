@@ -1,24 +1,25 @@
 <template>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <div>
+                <img :src="require('../../../public/img/logo.png')" alt="">
+            </div>
+            <router-link class="navbar-brand m-1" to="/">Boolpress.com</router-link>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <router-link class="nav-link m-1" to="{name: 'home'}">Home <span class="sr-only">(current)</span></router-link>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
+                <li class="nav-item active">
+                    <router-link class="nav-link m-1" to="{name: 'contact'}">Contact</router-link>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
+                <li class="nav-item active">
+                    <a class="nav-link m-1" href="/admin/posts">Bacheca</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
+
                 </ul>
             </div>
         </nav>
@@ -28,6 +29,24 @@
 <script>
 
 export default{
-        name: "header"
+        name: "header",
+        data() {
+            return {
+
+            }
+        }
     }
 </script>
+
+<style scoped>
+    .blue_custom{
+        color: blue;
+        color: #3d869f;
+        text-shadow: 2px 2px 4px #000000;
+        font-size: 1.5em;
+    }
+
+    .w_custom{
+        width: 150px;
+    }
+</style>

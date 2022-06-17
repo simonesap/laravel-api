@@ -1,9 +1,14 @@
 <template>
 
     <div>
-        <Loader v-if="isLoading" />
+        <div v-if="isLoading" >
+            <Loader/>
+        </div>
 
         <div v-if="posts.length">
+
+            <!-- <Pagination :pagination="pagination"/> -->
+
             <div class="card text-center" v-for="post in posts" :key="post.id">
                 <div class="card-header">
                     {{post.title}} - Category: {{post.category.label}}
@@ -15,7 +20,8 @@
                         </span>
                     </p>
                     <p class="card-text">{{post.content}}</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <router-link :to="{name: 'post-show-page'}" class="btn btn-primary">View</router-link>
+                    <!-- {params: $post.id} -->
                 </div>
                 <div class="card-footer text-muted">
                     2 days ago
@@ -30,17 +36,20 @@
 <script>
 import axios from 'axios';
 import Loader from '../Loader.vue';
+import Pagination from '../Pagination.vue';
 
     export default {
         name: 'PostList',
 
         components: {
             Loader,
+            Pagination,
         },
 
         data() {
             return{
                 posts: [],
+                pagination: {},
                 isLoading: true,
             }
 
@@ -50,10 +59,25 @@ import Loader from '../Loader.vue';
                 getPosts(){
                     axios.get('http://127.0.0.1:8000/api/posts')
                     .then( (res) => {
-                        // console.log(res.data)
-                        this.posts = res.data.posts;
+                        console.log(res.data.posts);
+
+                        //destrutturazione
+                        const {data, current_page, last_page} = res.data.posts;
+
+                        console.log(data);
+                        console.log(current_page);
+                        console.log(last_page);
+
+
+                        this.posts = data;
+
+                        this.pagination = {
+                                            lastPage: last_page,
+                                            currentPage: current_page,
+                                          }
+
                         // this.isLoading = false;
-                    }).then( ()=>{
+                    }).then( () => {
                         // console.log('terminato il caricamento dei posts')
                         this.isLoading = false;
                     } );

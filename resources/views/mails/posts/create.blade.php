@@ -7,24 +7,51 @@
     <title>Document</title>
     <style>
         body{
-            background-color: lightgoldenrodyellow;
+            background-color: gray;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+
+        .bg_l_blue{
+            background-color: lightblue;
+        }
+
+        .m_3{
+            margin: 5px;
         }
     </style>
 </head>
 <body>
 
-    {{-- <h2>Ciao hai creato un post: {{$post->title}}</h2>
-    <p>Categoria: {{$post->category->label}}</p> --}}
-    <h2>ciao</h2>
+    <div class="container bg_l_blue">
+        <h2 class="m_3">Ciao hai creato un post che si chiama: {{$post->title}}</h2>
+        <img src="{{ asset("storage/$post->image")}}" alt="">
 
-    {{-- <ul> --}}
-        {{-- in questo caso è post in relazione a tag --}}
-    {{-- @forelse ( $post->tags as $tag) --}}
-        {{-- <li>{{ $tags->label }}</li> --}}
-    {{-- @empty --}}
+        <ul class="m_3">
+            <li class="m_3">
+                <p>Categoria: {{$post->category->label}}</p>
+            </li>
+            {{-- in questo caso è post in relazione a tag --}}
+            @forelse ( $post->tags as $tag)
+                <li class="m_3">
+                    <p>
+                        Hai associato il tag - {{ $tag->label }} - a questo post!
+                    </p>
+                </li>
+            @empty
 
-    {{-- @endforelse --}}
-    {{-- </ul> --}}
+            @endforelse
+        </ul>
+
+    </div>
 
 
 </body>

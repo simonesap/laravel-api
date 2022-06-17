@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\Category;
 
 class PostController extends Controller
 {
@@ -16,10 +17,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        // $posts = Post::orderBy('updates_at', 'DESC')->with('tags','Category')->limit(5)->get();
-        $posts = Post::all();
+        //$posts = Post::orderBy('updates_at', 'DESC')->with('Category','tags')->limit(5)->get();
+        $posts = Post::orderBy('updated_at', 'DESC')->with('Category','tags')->paginate(5);
+        //$posts = Post::all();
 
-        return response()->json( compact('posts'));
+        return response()->json( compact( 'posts' ));
     }
 
     /**
@@ -51,7 +53,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::with('Category','tags')->find($id);
+
+        return response()->json( $post);
     }
 
     /**

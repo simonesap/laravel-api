@@ -12,6 +12,8 @@ class CreatePostMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    private $post;
+
     /**
      * Create a new message instance.
      *
@@ -29,7 +31,7 @@ class CreatePostMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.posts.create', ['post'=>$this->post]);
+        return $this->view('mails.posts.create', ['post' => $this->post]);
     }
 }
 
